@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+.env
+src/generated
+test/integration/.database-url
+.DS_Store
+*.log

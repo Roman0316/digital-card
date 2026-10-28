@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: card
+      POSTGRES_PASSWORD: card
+      POSTGRES_DB: card
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U card -d card']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - card-postgres:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      NODE_ENV: production
+      APP_NAME: digital-card
+      APP_PORT: 3000
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://card:card@postgres:5432/card
+      GRAPHQL_SANDBOX_ENABLED: 'true'
+      GRAPHQL_INTROSPECTION_ENABLED: 'true'
+      GRAPHQL_DEPTH_LIMIT: 8
+      EVENT_LOOP_LAG_THRESHOLD_MS: 2000
+      SHUTDOWN_TIMEOUT_MS: 10000
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/ready').then((response)=>process.exit(response.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  card-postgres:

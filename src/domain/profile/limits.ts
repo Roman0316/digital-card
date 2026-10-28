@@ -1,0 +1,15 @@
+export const PROFILE_LIMITS = {
+  slugMaxLength: 64,
+  nameMaxLength: 120,
+  descriptionMaxLength: 2000,
+  labelMaxLength: 80,
+  urlMaxLength: 500,
+  skillNameMaxLength: 80,
+  companyMaxLength: 160,
+  positionMaxLength: 160,
+  achievementMaxLength: 500,
+  projectNameMaxLength: 160,
+  projectSummaryMaxLength: 500,
+  sortOrderMax: 10_000,
+  collectionMaxSize: 100,
+} as const;

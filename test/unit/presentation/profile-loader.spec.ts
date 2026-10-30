@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { ProfileRelations } from '../../../src/application/profile/ports/profile-reader.port';
+import type { ProfileRelations } from '../../../src/application/profile/interfaces/profile-reader.interface';
 import { ProfileLoaderFactory } from '../../../src/presentation/graphql/profile/profile.loader-factory';
 
 describe('ProfileLoaderFactory', () => {

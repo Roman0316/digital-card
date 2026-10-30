@@ -7,7 +7,7 @@ import type {
   DatabaseHealthCheck,
   EventLoopHealthCheck,
   ReadinessState,
-} from '../../../src/application/probes/ports/probe-checks.port';
+} from '../../../src/application/probes/interfaces/probe-checks.interface';
 
 describe('пробы', () => {
   it('считает лаг выше порога фатальным', () => {

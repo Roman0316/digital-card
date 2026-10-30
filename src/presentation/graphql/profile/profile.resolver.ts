@@ -1,7 +1,7 @@
 import { Context, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 
 import { GetProfileUseCase } from '../../../application/profile/get-profile.use-case';
-import type { GraphqlContext } from '../graphql-context';
+import type { GraphqlContext } from '../interfaces/graphql-context.interface';
 
 import { toProfileModel } from './profile.mapper';
 import {

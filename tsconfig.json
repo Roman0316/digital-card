@@ -30,8 +30,8 @@
     "src/**/*",
     "test/**/*",
     "prisma.config.ts",
-    "vitest.unit.config.ts",
-    "vitest.integration.config.ts"
+    "vitest.unit.config.mts",
+    "vitest.integration.config.mts"
   ],
   "exclude": ["node_modules", "dist", "coverage"]
 }

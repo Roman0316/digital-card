@@ -3,8 +3,7 @@ import { Injectable } from '@nestjs/common';
 import type {
   ProfileLookup,
   ProfileRelations,
-} from '../../../application/profile/ports/profile-reader.port';
-import { isLinkKind } from '../../../domain/profile/link-kind';
+} from '../../../application/profile/interfaces/profile-reader.interface';
 import type {
   AchievementRecord,
   ExperienceRecord,
@@ -13,7 +12,8 @@ import type {
   ProjectRecord,
   ProjectSkillRecord,
   SkillRecord,
-} from '../../../domain/profile/profile-read-model';
+} from '../../../domain/profile/interfaces/profile-read-model.interface';
+import { isLinkKind } from '../../../domain/profile/link-kind';
 import { isSkillCategory } from '../../../domain/profile/skill-category';
 
 import { PrismaService } from './prisma.service';

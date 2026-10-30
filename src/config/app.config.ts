@@ -1,12 +1,5 @@
 import type { Env } from './env.schema';
-
-export interface AppConfig {
-  name: string;
-  nodeEnv: Env['NODE_ENV'];
-  port: number;
-  shutdownTimeoutMs: number;
-  isProduction: boolean;
-}
+import type { AppConfig } from './interfaces/app-config.interface';
 
 export function createAppConfig(env: Env): AppConfig {
   return {

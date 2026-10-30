@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { EventLoopHealthCheck } from './ports/probe-checks.port';
+import type { EventLoopHealthCheck } from './interfaces/probe-checks.interface';
+import type { LivenessResult } from './interfaces/probe-result.interface';
 import { EVENT_LOOP_HEALTH } from './tokens';
-import type { LivenessResult } from './types/probe-result';
 
 @Injectable()
 export class CheckLivenessUseCase {

@@ -13,14 +13,7 @@ import { PinoLogger } from 'nestjs-pino';
 
 import { ErrorCode } from '../../../shared/constants/error-codes';
 import { REQUEST_ID_HEADER } from '../../../shared/constants/headers';
-
-export interface ErrorResponseBody {
-  statusCode: number;
-  code: string;
-  message: string;
-  requestId: string;
-  timestamp: string;
-}
+import type { ErrorResponseBody } from '../interfaces/error-response-body.interface';
 
 @Injectable()
 @Catch()

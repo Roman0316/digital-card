@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { UnitOfWork } from '../../../application/profile/ports/catalog-sync.port';
-import type { DatabaseConfig } from '../../../config/database.config';
+import type { UnitOfWork } from '../../../application/profile/interfaces/catalog-sync.interface';
+import type { DatabaseConfig } from '../../../config/interfaces/database-config.interface';
 import { DATABASE_CONFIG } from '../../../config/tokens';
 
 import { PrismaCatalogSyncContext } from './prisma-catalog-sync.context';

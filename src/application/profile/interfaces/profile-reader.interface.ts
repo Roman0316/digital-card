@@ -6,7 +6,7 @@ import type {
   ProjectRecord,
   ProjectSkillRecord,
   SkillRecord,
-} from '../../../domain/profile/profile-read-model';
+} from '../../../domain/profile/interfaces/profile-read-model.interface';
 
 export interface ProfileLookup {
   findBySlug(slug: string): Promise<ProfileSnapshot | null>;

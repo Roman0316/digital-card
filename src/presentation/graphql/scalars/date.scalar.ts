@@ -3,8 +3,10 @@ import { Kind, type ValueNode } from 'graphql';
 
 import { DateOnly, InvalidDateOnlyError } from '../../../domain/profile/date-only';
 
-@Scalar('Date', () => Date)
-export class DateScalar implements CustomScalar<string, string> {
+export class DateOnlyGraphql {}
+
+@Scalar('DateOnly', () => DateOnlyGraphql)
+export class DateOnlyScalar implements CustomScalar<string, string> {
   description = 'Календарная дата в формате YYYY-MM-DD';
 
   parseValue(value: unknown): string {

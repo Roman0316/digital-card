@@ -1,21 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import DataLoader from 'dataloader';
 
-import type { ProfileRelations } from '../../../application/profile/ports/profile-reader.port';
+import type { ProfileRelations } from '../../../application/profile/interfaces/profile-reader.interface';
 import { PROFILE_RELATIONS } from '../../../application/profile/tokens';
 import { alignByKey, groupBy } from '../../../shared/collection/group-by';
+import type { ProfileLoaders } from '../interfaces/profile-loaders.interface';
 
 import { toExperienceModel, toLinkModel, toProjectModel, toSkillModel } from './profile.mapper';
-import type { ExperienceModel, ProfileLinkModel, ProjectModel, SkillModel } from './profile.models';
-
-export interface ProfileLoaders {
-  links: DataLoader<string, ProfileLinkModel[]>;
-  skills: DataLoader<string, SkillModel[]>;
-  experience: DataLoader<string, ExperienceModel[]>;
-  achievements: DataLoader<string, string[]>;
-  projects: DataLoader<string, ProjectModel[]>;
-  projectSkills: DataLoader<string, SkillModel[]>;
-}
 
 @Injectable()
 export class ProfileLoaderFactory {

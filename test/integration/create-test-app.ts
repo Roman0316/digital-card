@@ -6,11 +6,7 @@ import { DATABASE_HEALTH, EVENT_LOOP_HEALTH } from '../../src/application/probes
 import { PROFILE_SLUG } from '../../src/application/profile/tokens';
 import { configureHttp } from '../../src/presentation/http/configure-http';
 
-export interface TestAppOptions {
-  slug?: string;
-  databaseAvailable?: boolean;
-  eventLoopHealthy?: boolean;
-}
+import type { TestAppOptions } from './interfaces/test-app-options.interface';
 
 export async function createTestApp(options: TestAppOptions = {}): Promise<INestApplication> {
   const builder = Test.createTestingModule({ imports: [AppModule] });

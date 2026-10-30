@@ -3,8 +3,8 @@ import { monitorEventLoopDelay, type IntervalHistogram } from 'node:perf_hooks';
 import { Inject, Injectable, type OnModuleDestroy, type OnModuleInit } from '@nestjs/common';
 
 import { isEventLoopLagAcceptable } from '../../application/probes/event-loop-lag';
-import type { EventLoopHealthCheck } from '../../application/probes/ports/probe-checks.port';
-import type { ProbesConfig } from '../../config/probes.config';
+import type { EventLoopHealthCheck } from '../../application/probes/interfaces/probe-checks.interface';
+import type { ProbesConfig } from '../../config/interfaces/probes-config.interface';
 import { PROBES_CONFIG } from '../../config/tokens';
 
 const HISTOGRAM_RESOLUTION_MS = 20;

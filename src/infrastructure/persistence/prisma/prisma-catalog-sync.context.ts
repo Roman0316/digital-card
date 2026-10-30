@@ -1,12 +1,13 @@
 import type {
   CatalogSyncContext,
   StoredCatalogHead,
-} from '../../../application/profile/ports/catalog-sync.port';
+} from '../../../application/profile/interfaces/catalog-sync.interface';
 import { CatalogSyncConflictError } from '../../../application/shared/application-error';
 import type { ProfileCatalog } from '../../../domain/profile/profile-catalog';
 
+import type { DbClient } from './interfaces/db-client.interface';
+import { hashPersistedCatalog } from './map-persisted-catalog';
 import { asCatalogConflict } from './prisma-error.mapper';
-import type { DbClient } from './prisma.service';
 
 export class PrismaCatalogSyncContext implements CatalogSyncContext {
   constructor(private readonly db: DbClient) {}
@@ -18,16 +19,24 @@ export class PrismaCatalogSyncContext implements CatalogSyncContext {
   }
 
   async findHead(slug: string): Promise<StoredCatalogHead | null> {
-    const head = await this.db.profile.findUnique({
+    const profile = await this.db.profile.findUnique({
       where: { slug },
-      select: { contentHash: true, version: true },
+      include: {
+        links: true,
+        skills: true,
+        experiences: { include: { achievements: true } },
+        projects: { include: { skills: { include: { skill: true } } } },
+      },
     });
 
-    if (!head) {
+    if (!profile) {
       return null;
     }
 
-    return { contentHash: head.contentHash, version: head.version };
+    return {
+      contentHash: hashPersistedCatalog(profile) ?? '__invalid__',
+      version: profile.version,
+    };
   }
 
   async replace(

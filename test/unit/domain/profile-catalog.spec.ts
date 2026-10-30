@@ -23,10 +23,10 @@ describe('ProfileCatalog', () => {
       createCatalogDraft({
         experience: [
           {
-            company: 'Продуктовая разработка',
-            position: 'Backend-инженер',
-            startDate: '2023-03-01',
-            endDate: null,
+            company: 'AT Systems',
+            position: 'Ведущий backend-разработчик',
+            startDate: '2025-03-01',
+            endDate: '2026-10-01',
             sortOrder: 0,
             achievements: ['Другое достижение'],
           },
@@ -94,7 +94,7 @@ describe('ProfileCatalog', () => {
           projects: [
             {
               name: 'Цифровая визитка',
-              url: 'https://github.com/romanshestakov/digital-card',
+              url: 'https://github.com/Roman0316',
               summary: null,
               skillNames: ['Redis'],
               sortOrder: 0,

@@ -4,7 +4,7 @@ import { promisify } from 'node:util';
 
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { DatabaseConfig } from '../../../config/database.config';
+import type { DatabaseConfig } from '../../../config/interfaces/database-config.interface';
 import { DATABASE_CONFIG, RUNTIME_ENVIRONMENT, WORKING_DIRECTORY } from '../../../config/tokens';
 
 import { PrismaService } from './prisma.service';

@@ -44,7 +44,7 @@ describe('HTTP и GraphQL визитки', () => {
   });
 
   afterAll(async () => {
-    await app.close();
+    await app?.close();
   });
 
   it('отвечает на liveness и readiness', async () => {
@@ -58,7 +58,10 @@ describe('HTTP и GraphQL визитки', () => {
     expect(metrics.text).toContain(MetricName.CatalogSync);
 
     await request(app.getHttpServer()).get('/docs-json').expect(200);
-    const sandbox = await request(app.getHttpServer()).get('/graphql').expect(200);
+    const sandbox = await request(app.getHttpServer())
+      .get('/graphql')
+      .set('Accept', 'text/html')
+      .expect(200);
     expect(sandbox.headers['content-type']).toContain('text/html');
   });
 
@@ -87,9 +90,14 @@ describe('HTTP и GraphQL визитки', () => {
       .expect(200);
 
     const profile = response.body.data.profile;
-    const current = profile.experience.find((item: { isCurrent: boolean }) => item.isCurrent);
-    expect(current.achievements.length).toBeGreaterThan(0);
-    expect(current.endDate).toBeNull();
+    const latest = profile.experience.find(
+      (item: { company: string }) => item.company === 'AT Systems',
+    );
+    expect(latest.achievements.length).toBeGreaterThan(0);
+    expect(latest.isCurrent).toBe(false);
+    expect(latest.endDate).toBe(
+      profileCatalogDraft.experience.find((item) => item.company === 'AT Systems')?.endDate,
+    );
     expect(profile.projects[0].skills.map((skill: { name: string }) => skill.name)).toEqual(
       expect.arrayContaining(['NestJS']),
     );
@@ -175,15 +183,26 @@ describe('HTTP и GraphQL визитки', () => {
       where: { slug: profileCatalogDraft.slug },
     });
 
+    await prisma.experience.create({
+      data: {
+        profileId: profile.id,
+        company: 'Другая',
+        position: 'Консультант',
+        startDate: '2024-01-01',
+        endDate: null,
+        sortOrder: 50,
+      },
+    });
+
     await expect(
       prisma.experience.create({
         data: {
           profileId: profile.id,
-          company: 'Другая',
+          company: 'Ещё одна',
           position: 'Консультант',
-          startDate: '2024-01-01',
+          startDate: '2024-02-01',
           endDate: null,
-          sortOrder: 50,
+          sortOrder: 51,
         },
       }),
     ).rejects.toThrow();

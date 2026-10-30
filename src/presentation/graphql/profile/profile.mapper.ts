@@ -1,12 +1,12 @@
 import { isCurrentEmployment } from '../../../domain/profile/employment-period';
-import { LinkKind } from '../../../domain/profile/link-kind';
 import type {
   ExperienceRecord,
   ProfileLinkRecord,
   ProfileSnapshot,
   ProjectRecord,
   SkillRecord,
-} from '../../../domain/profile/profile-read-model';
+} from '../../../domain/profile/interfaces/profile-read-model.interface';
+import { LinkKind } from '../../../domain/profile/link-kind';
 import { SkillCategory } from '../../../domain/profile/skill-category';
 
 import type {

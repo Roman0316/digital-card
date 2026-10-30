@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { ProfileSnapshot } from '../../domain/profile/profile-read-model';
+import type { ProfileSnapshot } from '../../domain/profile/interfaces/profile-read-model.interface';
 import { ProfileNotFoundError } from '../shared/application-error';
 
-import type { ProfileLookup } from './ports/profile-reader.port';
+import type { ProfileLookup } from './interfaces/profile-reader.interface';
 import { PROFILE_LOOKUP, PROFILE_SLUG } from './tokens';
 
 @Injectable()

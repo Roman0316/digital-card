@@ -1,5 +1,5 @@
-import type { LinkKind } from './link-kind';
-import type { SkillCategory } from './skill-category';
+import type { LinkKind } from '../link-kind';
+import type { SkillCategory } from '../skill-category';
 
 export interface ProfileLinkSnapshot {
   kind: LinkKind;

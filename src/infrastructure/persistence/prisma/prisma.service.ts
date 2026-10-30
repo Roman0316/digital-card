@@ -1,14 +1,9 @@
 import { Inject, Injectable, type OnModuleDestroy, type OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-import type { DatabaseConfig } from '../../../config/database.config';
+import type { DatabaseConfig } from '../../../config/interfaces/database-config.interface';
 import { DATABASE_CONFIG } from '../../../config/tokens';
 import { PrismaClient } from '../../../generated/prisma/client';
-
-export type DbClient = Omit<
-  PrismaClient,
-  '$connect' | '$disconnect' | '$on' | '$transaction' | '$extends'
->;
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {

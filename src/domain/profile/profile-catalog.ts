@@ -5,10 +5,10 @@ import {
   InvalidProfileCatalogError,
 } from './errors/invalid-profile-catalog.error';
 import { normalizeExternalUrl } from './external-url';
+import type { ProfileCatalogDraft } from './interfaces/profile-catalog-draft.interface';
+import type { ProfileCatalogSnapshot } from './interfaces/profile-catalog-snapshot.interface';
 import { PROFILE_LIMITS } from './limits';
 import { isLinkKind, type LinkKind } from './link-kind';
-import type { ProfileCatalogDraft } from './profile-catalog-draft';
-import type { ProfileCatalogSnapshot } from './profile-catalog-snapshot';
 import { isSkillCategory, type SkillCategory } from './skill-category';
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -193,28 +193,33 @@ function normalizeCatalog(draft: ProfileCatalogDraft): ProfileCatalogSnapshot {
   );
 
   const openRoles = experience.filter((item) => item.endDate === null);
-  if (openRoles.length !== 1) {
+  if (openRoles.length > 1) {
     throw new InvalidProfileCatalogError(
       CatalogViolation.CurrentRole,
-      'В визитке должна быть ровно одна текущая роль без даты окончания',
+      'В визитке не может быть больше одной текущей роли без даты окончания',
     );
   }
 
   const skillsByName = new Map(
     skills.map((skill) => [skill.name.toLocaleLowerCase('ru'), skill.name]),
   );
+  const skillOrderByName = new Map(skills.map((skill) => [skill.name, skill.sortOrder]));
   const resolvedProjects = projects.map((project) => ({
     ...project,
-    skillNames: project.skillNames.map((skillName) => {
-      const canonical = skillsByName.get(skillName.toLocaleLowerCase('ru'));
-      if (!canonical) {
-        throw new InvalidProfileCatalogError(
-          CatalogViolation.Project,
-          `Проект «${project.name}» ссылается на неизвестный навык «${skillName}»`,
-        );
-      }
-      return canonical;
-    }),
+    skillNames: project.skillNames
+      .map((skillName) => {
+        const canonical = skillsByName.get(skillName.toLocaleLowerCase('ru'));
+        if (!canonical) {
+          throw new InvalidProfileCatalogError(
+            CatalogViolation.Project,
+            `Проект «${project.name}» ссылается на неизвестный навык «${skillName}»`,
+          );
+        }
+        return canonical;
+      })
+      .sort(
+        (left, right) => (skillOrderByName.get(left) ?? 0) - (skillOrderByName.get(right) ?? 0),
+      ),
   }));
 
   for (const project of resolvedProjects) {

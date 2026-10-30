@@ -1,12 +1,5 @@
 import type { Env } from './env.schema';
-
-export interface DatabaseConfig {
-  url: string;
-  connectAttempts: number;
-  connectDelayMs: number;
-  transactionTimeoutMs: number;
-  logQueries: boolean;
-}
+import type { DatabaseConfig } from './interfaces/database-config.interface';
 
 export function createDatabaseConfig(env: Env): DatabaseConfig {
   return {

@@ -1,11 +1,5 @@
 import type { Env } from './env.schema';
-
-export interface GraphqlConfig {
-  sandboxEnabled: boolean;
-  introspectionEnabled: boolean;
-  depthLimit: number;
-  includeStacktrace: boolean;
-}
+import type { GraphqlConfig } from './interfaces/graphql-config.interface';
 
 export function createGraphqlConfig(env: Env): GraphqlConfig {
   return {

@@ -34,13 +34,13 @@ describe('EmploymentPeriod', () => {
 
 describe('normalizeExternalUrl', () => {
   it('оставляет https-ссылку без хэша и лишнего слэша', () => {
-    expect(normalizeExternalUrl('https://github.com/romanshestakov/')).toBe(
-      'https://github.com/romanshestakov',
+    expect(normalizeExternalUrl('https://github.com/Roman0316/')).toBe(
+      'https://github.com/Roman0316',
     );
   });
 
   it('отклоняет ссылку с паролем', () => {
-    expect(() => normalizeExternalUrl('https://user:secret@github.com/romanshestakov')).toThrow(
+    expect(() => normalizeExternalUrl('https://user:secret@github.com/Roman0316')).toThrow(
       InvalidExternalUrlError,
     );
   });

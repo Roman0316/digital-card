@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
-import type { LoggerConfig } from '../../config/logger.config';
+import type { LoggerConfig } from '../../config/interfaces/logger-config.interface';
 import { LOGGER_CONFIG } from '../../config/tokens';
 
 @Module({

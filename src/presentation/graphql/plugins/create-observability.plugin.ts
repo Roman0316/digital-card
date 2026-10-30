@@ -2,7 +2,8 @@ import type { ApolloServerPlugin } from '@apollo/server';
 
 import type { AppMetrics } from '../../../infrastructure/metrics/app-metrics';
 import { resolveGraphqlOperationLabel } from '../../../shared/constants/graphql-operations';
-import type { GraphqlContext } from '../graphql-context';
+import { REQUEST_ID_HEADER } from '../../../shared/constants/headers';
+import type { GraphqlContext } from '../interfaces/graphql-context.interface';
 
 const NANOSECONDS_IN_SECOND = 1_000_000_000;
 
@@ -14,6 +15,11 @@ export function createGraphqlObservabilityPlugin(
       const started = process.hrtime.bigint();
       return {
         async willSendResponse(requestContext) {
+          const response = requestContext.contextValue.req.res;
+          if (response && !response.headersSent) {
+            response.setHeader(REQUEST_ID_HEADER, requestContext.contextValue.requestId);
+          }
+
           const operation = resolveGraphqlOperationLabel(requestContext.operationName);
           const failed = (requestContext.errors?.length ?? 0) > 0;
           const result = failed ? 'error' : 'success';

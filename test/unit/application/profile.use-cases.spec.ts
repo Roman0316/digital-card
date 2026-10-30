@@ -5,8 +5,8 @@ import { GetProfileUseCase } from '../../../src/application/profile/get-profile.
 import type {
   CatalogSyncContext,
   UnitOfWork,
-} from '../../../src/application/profile/ports/catalog-sync.port';
-import type { ProfileLookup } from '../../../src/application/profile/ports/profile-reader.port';
+} from '../../../src/application/profile/interfaces/catalog-sync.interface';
+import type { ProfileLookup } from '../../../src/application/profile/interfaces/profile-reader.interface';
 import { SyncProfileCatalogUseCase } from '../../../src/application/profile/sync-profile-catalog.use-case';
 import { CatalogSyncStatus } from '../../../src/application/profile/types/catalog-sync-result';
 import {

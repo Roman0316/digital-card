@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { Logger as PinoNestLogger } from 'nestjs-pino';
 
 import { AppModule } from './app.module';
-import type { AppConfig } from './config/app.config';
+import type { AppConfig } from './config/interfaces/app-config.interface';
 import { APP_CONFIG } from './config/tokens';
 import { configureHttp } from './presentation/http/configure-http';
 

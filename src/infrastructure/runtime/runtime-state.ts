@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import type { ReadinessState } from '../../application/probes/ports/probe-checks.port';
+import type { ReadinessState } from '../../application/probes/interfaces/probe-checks.interface';
 
 @Injectable()
 export class RuntimeState implements ReadinessState {

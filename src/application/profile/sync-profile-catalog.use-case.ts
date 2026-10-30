@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 
+import type { ProfileCatalogDraft } from '../../domain/profile/interfaces/profile-catalog-draft.interface';
 import { ProfileCatalog } from '../../domain/profile/profile-catalog';
-import type { ProfileCatalogDraft } from '../../domain/profile/profile-catalog-draft';
 import { CatalogSyncConflictError } from '../shared/application-error';
 
 import { PROFILE_CATALOG_LOCK_KEY } from './catalog-sync.constants';
-import type { CatalogSyncContext, UnitOfWork } from './ports/catalog-sync.port';
+import type { CatalogSyncResult } from './interfaces/catalog-sync-result.interface';
+import type { CatalogSyncContext, UnitOfWork } from './interfaces/catalog-sync.interface';
 import { UNIT_OF_WORK } from './tokens';
-import { CatalogSyncStatus, type CatalogSyncResult } from './types/catalog-sync-result';
+import { CatalogSyncStatus } from './types/catalog-sync-result';
 
 @Injectable()
 export class SyncProfileCatalogUseCase {

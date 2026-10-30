@@ -1,4 +1,5 @@
 import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PinoLogger } from 'nestjs-pino';
 
 import { CheckLivenessUseCase } from '../../../application/probes/check-liveness.use-case';
@@ -9,6 +10,7 @@ import { RequestId } from '../decorators/request-id.decorator';
 import type { ProbeResponseDto } from '../dto/http-response.dto';
 import { ApiLiveness, ApiReadiness } from '../swagger/api-probes.decorator';
 
+@ApiTags('probes')
 @Controller()
 export class ProbesController {
   constructor(

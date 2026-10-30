@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
-import { DateScalar } from '../scalars/date.scalar';
+import { DateOnlyGraphql } from '../scalars/date.scalar';
 
 export enum LinkKindModel {
   GITHUB = 'GITHUB',
@@ -63,10 +63,10 @@ export class ExperienceModel {
   @Field({ description: 'Должность' })
   position!: string;
 
-  @Field(() => DateScalar, { description: 'Дата начала' })
+  @Field(() => DateOnlyGraphql, { description: 'Дата начала' })
   startDate!: string;
 
-  @Field(() => DateScalar, {
+  @Field(() => DateOnlyGraphql, {
     nullable: true,
     description: 'Дата окончания. Пусто, если роль текущая',
   })

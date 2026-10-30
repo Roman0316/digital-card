@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import type { DatabaseHealthCheck } from '../../../application/probes/ports/probe-checks.port';
+import type { DatabaseHealthCheck } from '../../../application/probes/interfaces/probe-checks.interface';
 
 import { PrismaService } from './prisma.service';
 

@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { DatabaseHealthCheck, ReadinessState } from './ports/probe-checks.port';
+import type { DatabaseHealthCheck, ReadinessState } from './interfaces/probe-checks.interface';
+import type { ReadinessResult } from './interfaces/probe-result.interface';
 import { DATABASE_HEALTH, READINESS_STATE } from './tokens';
-import type { ReadinessResult } from './types/probe-result';
 
 @Injectable()
 export class CheckReadinessUseCase {

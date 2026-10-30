@@ -5,19 +5,19 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ClsService } from 'nestjs-cls';
 
 import { PROFILE_RELATIONS } from '../../application/profile/tokens';
-import type { GraphqlConfig } from '../../config/graphql.config';
+import type { GraphqlConfig } from '../../config/interfaces/graphql-config.interface';
 import { GRAPHQL_CONFIG } from '../../config/tokens';
 import { AppMetrics } from '../../infrastructure/metrics/app-metrics';
 import { PrismaProfileReader } from '../../infrastructure/persistence/prisma/prisma-profile.reader';
 import { PrismaModule } from '../../infrastructure/persistence/prisma/prisma.module';
 import { ProfileModule } from '../../profile.module';
 
-import type { GraphqlContext } from './graphql-context';
+import type { GraphqlContext } from './interfaces/graphql-context.interface';
 import { createGraphqlObservabilityPlugin } from './plugins/create-observability.plugin';
 import { formatGraphqlError } from './plugins/format-graphql-error';
 import { ProfileLoaderFactory } from './profile/profile.loader-factory';
 import { ExperienceResolver, ProfileResolver, ProjectResolver } from './profile/profile.resolver';
-import { DateScalar } from './scalars/date.scalar';
+import { DateOnlyScalar } from './scalars/date.scalar';
 import { createDepthLimitRule } from './validation/depth-limit.rule';
 
 @Module({
@@ -67,7 +67,7 @@ class ProfileLoaderModule {}
       }),
     }),
   ],
-  providers: [ProfileResolver, ExperienceResolver, ProjectResolver, DateScalar],
+  providers: [ProfileResolver, ExperienceResolver, ProjectResolver, DateOnlyScalar],
 })
 export class GraphqlApiModule {}
 

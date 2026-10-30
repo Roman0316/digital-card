@@ -1,8 +1,5 @@
 import type { Env } from './env.schema';
-
-export interface ProbesConfig {
-  eventLoopLagThresholdMs: number;
-}
+import type { ProbesConfig } from './interfaces/probes-config.interface';
 
 export function createProbesConfig(env: Env): ProbesConfig {
   return {
